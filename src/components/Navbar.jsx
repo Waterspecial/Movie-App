@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await logOut;
+      await logOut();
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -28,7 +28,10 @@ const Navbar = () => {
             <button className="text-white pr-4">Profile</button>
           </Link>
 
-          <button onClick={handleLogout} className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white"
+          >
             Logout
           </button>
         </div>
