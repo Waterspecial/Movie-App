@@ -12,6 +12,22 @@ const Movie = ({ item }) => {
 
   const movieID = doc(db, "users", `${user?.email}`)
 
+  const saveShow = async () => {
+    if(user?.email) {
+      setLike(!like)
+      setSaved(true)
+      await updateDoc(movieID, {
+        savedShows: arrayUnion({
+          id: item.id,
+          title : item.title,
+          img: item.backdrop_path
+        })
+      })
+    } else {
+      alert(`Please login to save a movie`)
+    }
+  }
+
   return (
     <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor relative p-2">
       <img
@@ -22,9 +38,9 @@ const Movie = ({ item }) => {
         <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full">
           {item.title}
         </p>
-        <p>
+        <p onClick={saveShow}>
           {like ? (
-            <FaHeart className="absolute top-4 left-4 text-gray-400" />
+            <FaHeart className="absolute top-4 cursor-pointer left-4 text-gray-400" />
           ) : (
             <FaRegHeart className="absolute top-4 left-4 text-gray-400" />
           )}
